@@ -6,7 +6,7 @@ import { WelcomeToPage } from "./components/WelcomeToPage/WelcomeToPage";
 import Us from "./components/Us/Us";
 import Contact from "./components/Contact/Contact";
 import Products from "./components/Products/Products";
-
+import Footer from "./components/Footer/Footer";
 const App = () => {
   const [showPage, setShowPage] = useState(false);
 
@@ -24,6 +24,7 @@ const App = () => {
           <Us />
           <Products />
           <Contact />
+          <Footer />
         </>
       )}
     </>

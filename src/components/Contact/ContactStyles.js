@@ -42,17 +42,16 @@ export const ContactLink = styled.a`
   background-color: #fff;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
 
-  /* Cambio de borde y color del texto al hacer hover */
   &:hover {
     background-color: ${({ className }) => {
-      if (className.includes("whatsapp")) return "#25d366"; // WhatsApp
-      if (className.includes("instagram")) return "#e4405f"; // Instagram
-      if (className.includes("store")) return "#ff9f00"; // Tienda
-      if (className.includes("maps")) return "#34b7f1"; // Maps
-      if (className.includes("references")) return "#ff3b30"; // Referencias
+      if (className.includes("whatsapp")) return "#25d366"; 
+      if (className.includes("instagram")) return "#e4405f"; 
+      if (className.includes("store")) return "#ff9f00"; 
+      if (className.includes("maps")) return "#34b7f1"; 
+      if (className.includes("references")) return "#ff3b30"; 
       return "#ccc";
     }};
-    color: #fff; /* El color del texto cambia a blanco */
+    color: #fff; 
     transform: translateY(-5px);
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
   }

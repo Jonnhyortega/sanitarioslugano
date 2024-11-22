@@ -47,10 +47,10 @@ const Contact = () => {
           className="maps"
         >
           <FaMapMarkedAlt />
-          <span>Google Maps</span>
+          <span>Ubicación</span>
         </ContactLink>
         <ContactLink
-          href="https://maps.app.goo.gl/TPgrML6tCy1f841N7"
+          href="https://www.google.com/maps/place/Sanitarios+Lugano/@-34.6794643,-58.4751984,17z/data=!4m8!3m7!1s0x95bcc952380eab39:0xed8b413f1afdb5c4!8m2!3d-34.6794687!4d-58.4726235!9m1!1b1!16s%2Fg%2F1ydphgm5p?entry=ttu&g_ep=EgoyMDI0MTExOS4yIKXMDSoASAFQAw%3D%3D"
           target="_blank"
           rel="noopener noreferrer"
           className="references"

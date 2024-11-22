@@ -3,57 +3,42 @@ import {
   ProductContainer,
   Banner,
   ProductHighlightContainer,
-  ProductCard,
-  ProductImage,
-  ProductName,
 } from "./ProductsStyles";
+import images from "../../Imgs/LogosProducts/index";
+import { products } from "../../DataProducts"; // Asegúrate de tener la lista de productos importada
+import ProductCard from "../ProductCard/ProductCard"; // Asegúrate de importar el componente ProductCard correctamente
 
 const Products = () => {
   return (
-    <ProductContainer>
+    <ProductContainer id="products">
       <Banner>
-        <h2>Ofrecemos las mejores marcas del mercado</h2>
+        <h2>Marcas de primera calidad</h2>
         <div className="brand-logos">
-          <img src="/path-to-logo1.png" alt="Marca 1" />
-          <img src="/path-to-logo2.png" alt="Marca 2" />
-          <img src="/path-to-logo3.png" alt="Marca 3" />
-          <img src="/path-to-logo4.png" alt="Marca 4" />
+          <img src={images.aquasystem} alt="Marca 1" />
+          <img src={images.affinity} alt="Marca 2" />
+          <img src={images.awaduct} alt="Marca 3" />
+          <img src={images.duratop} alt="Marca 4" />
+          <img src={images.fv} alt="Marca 5" />
+          <img src={images.orbis} alt="Marca 6" />
+          <img src={images.ormiflex} alt="Marca 7" />
+          <img src={images.rheem} alt="Marca 8" />
+          <img src={images.rotoplas} alt="Marca 9" />
+          <img src={images.rowa} alt="Marca 10" />
+          <img src={images.motorarg} alt="Marca 11" />
+          <img src={images.saiar} alt="Marca 12" />
+          <img src={images.sherman} alt="Marca 14" />
+          <img src={images.sigas} alt="Marca 15" />
+          <img src={images.waterplas} alt="Marca 16" />
+          <img src={images.señorial} alt="Marca 13" />
         </div>
       </Banner>
 
       <ProductHighlightContainer>
-        <h3>Productos más vendidos</h3>
+        <h3>Productos destacados</h3>
         <div className="products">
-          <ProductCard>
-            <ProductImage
-              src="/path-to-bathset-image.jpg"
-              alt="Juego de baño"
-            />
-            <ProductName>Juego de baño</ProductName>
-          </ProductCard>
-          <ProductCard>
-            <ProductImage src="/path-to-faucets-image.jpg" alt="Griferías" />
-            <ProductName>Griferías</ProductName>
-          </ProductCard>
-          <ProductCard>
-            <ProductImage
-              src="/path-to-waterbobbin-image.jpg"
-              alt="Bobinas de agua"
-            />
-            <ProductName>Bobinas de agua</ProductName>
-          </ProductCard>
-          <ProductCard>
-            <ProductImage src="/path-to-tanks-image.jpg" alt="Tanques" />
-            <ProductName>Tanques</ProductName>
-          </ProductCard>
-          <ProductCard>
-            <ProductImage src="/path-to-heaters-image.jpg" alt="Calefones" />
-            <ProductName>Calefones</ProductName>
-          </ProductCard>
-          <ProductCard>
-            <ProductImage src="/path-to-pipes-image.jpg" alt="Cañerías" />
-            <ProductName>Cañerías</ProductName>
-          </ProductCard>
+          {products.map((product) => (
+            <ProductCard key={product.id} product={product} />
+          ))}
         </div>
       </ProductHighlightContainer>
     </ProductContainer>

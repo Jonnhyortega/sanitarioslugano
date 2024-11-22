@@ -59,8 +59,6 @@ export const Content = styled.div`
     width: 150px;
     height: auto;
     border-radius: 20px;
-    // border: 1px solid var(--blue2);
-    box-shadow: 1px 1px 10px var(--blue2);
   }
 
   .links {
@@ -71,16 +69,17 @@ export const Content = styled.div`
       font-size: 1.2em;
       font-weight: bold;
       text-decoration: none;
-      color: var(--blue1);
+      color: white;
       background-color: var(--blue2);
       padding: 10px 20px;
       border-radius: 5px;
       transition: all 0.3s ease-in-out;
-
+      border: 1px solid transparent;
       &:hover {
         background-color: var(--blue1);
         color: white;
         transform: scale(1.05);
+        border: 1px solid var(--blue2);
       }
     }
   }

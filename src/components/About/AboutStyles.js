@@ -1,7 +1,6 @@
 import styled, { keyframes } from "styled-components";
 import img from "../../Imgs/HomeImgs/fondoHome.jpeg";
 
-// Animación de entrada
 const fadeIn = keyframes`
   from {
     opacity: 0;
@@ -30,6 +29,7 @@ export const AboutContainer = styled.section`
   display: flex;
   align-items: center;
   justify-content: center;
+  margin-top: 60px;
 `;
 
 export const TextContent = styled.div`
@@ -44,13 +44,28 @@ export const TextContent = styled.div`
     line-height: 1.2;
     margin-bottom: 20px;
     text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
+
+    @media (max-width: 468px) {
+      font-size: 2.8rem;
+    }
+    @media (max-width: 300px) {
+      font-size: 2.2rem;
+    }
   }
 
   p {
     font-size: 1.5rem;
-    font-weight: 300;
+    font-weight: 500;
     margin-bottom: 30px;
     color: #f1f1f1;
+  }
+
+  .buttons {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
   }
 
   a {

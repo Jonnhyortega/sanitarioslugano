@@ -7,7 +7,12 @@ export const NavContainer = styled.div`
   align-items: center;
   justify-content: space-around;
   padding: 1rem 2rem;
-  background-color: var(--blue1);
+  background: linear-gradient(
+    90deg,
+    rgba(36, 47, 92, 1) 66%,
+    rgba(58, 165, 219, 1) 91%
+  );
+
   position: fixed;
   top: 0;
   z-index: 1000;
@@ -35,6 +40,7 @@ export const NavContainer = styled.div`
     font-weight: bold;
     text-decoration: none;
     transition: color 0.2s, border-bottom 0.2s;
+    font-family: var(--funnel);
 
     &:hover {
       color: var(--blue2);
@@ -48,7 +54,11 @@ export const NavMobileContainer = styled.div`
   top: 0;
   left: 0;
   width: 100%;
-  background-color: var(--blue1);
+  background: linear-gradient(
+    90deg,
+    rgba(36, 47, 92, 1) 66%,
+    rgba(58, 165, 219, 1) 91%
+  );
   z-index: 1000;
 
   img {
@@ -84,9 +94,11 @@ export const MobileNavMenu = styled.nav`
   width: 100%;
   height: 100vh;
   padding: 0 8em 0 0;
-  backdrop-filter: blur(25px) saturate(200%);
-  -webkit-backdrop-filter: blur(25px) saturate(200%);
-  background-color: rgba(255, 255, 255, 0);
+  background: linear-gradient(
+    190deg,
+    rgba(36, 47, 92, 1) 66%,
+    rgba(58, 165, 219, 1) 91%
+  );
   display: flex;
   flex-direction: column;
   align-items: end;
@@ -97,13 +109,15 @@ export const MobileNavMenu = styled.nav`
 
   a {
     border-bottom: 2px solid var(--blue1);
-    color: var(--blue1);
+    color: white;
     font-weight: bold;
     text-decoration: none;
+    font-family: var(--funnel);
     font-size: 1.5rem;
+    text-align: left;
     margin: 1rem 0;
     transition: color 0.2s, border-bottom 0.2s;
-
+    font-family: var(--funnel);
     &:hover {
       color: var(--blue2);
     }

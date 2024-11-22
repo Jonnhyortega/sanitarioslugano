@@ -66,7 +66,7 @@ const Navigate = () => {
               borderBottom:
                 select === "inicio"
                   ? "2px solid var(--blue2)"
-                  : "2px solid var(--blue1)",
+                  : "2px solid transparent",
             }}
             href="#home"
           >
@@ -81,7 +81,7 @@ const Navigate = () => {
               borderBottom:
                 select === "about"
                   ? "2px solid var(--blue2)"
-                  : "2px solid var(--blue1)",
+                  : "2px solid transparent",
             }}
             href="#us"
           >
@@ -96,7 +96,7 @@ const Navigate = () => {
               borderBottom:
                 select === "products"
                   ? "2px solid var(--blue2)"
-                  : "2px solid var(--blue1)",
+                  : "2px solid transparent",
             }}
             href="#products"
           >
@@ -111,7 +111,7 @@ const Navigate = () => {
               borderBottom:
                 select === "contact"
                   ? "2px solid var(--blue2)"
-                  : "2px solid var(--blue1)",
+                  : "2px solid transparent",
             }}
             href="#contact"
           >

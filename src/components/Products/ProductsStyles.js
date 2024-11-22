@@ -1,25 +1,29 @@
 import styled from "styled-components";
 
 export const ProductContainer = styled.div`
-  padding: 2rem;
-  background-color: #f4f4f4;
+  background-color: transparent;
 `;
 
 export const Banner = styled.div`
-  background-color: #1a73e8;
   color: white;
-  padding: 3rem 0;
+  padding: 7rem 0 2rem 0;
   text-align: center;
-
+  position: relative;
   h2 {
-    font-size: 2.5rem;
-    margin-bottom: 1.5rem;
-    font-weight: bold;
+    font-size: 1.7rem;
+    margin-bottom: 2.5rem;
+    font-weight: 300;
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    color: var(--blue1);
+    font-family: var(--funnel);
   }
 
   .brand-logos {
     display: flex;
     justify-content: center;
+    flex-wrap: wrap;
     gap: 2rem;
 
     img {
@@ -37,46 +41,24 @@ export const Banner = styled.div`
 export const ProductHighlightContainer = styled.div`
   text-align: center;
   margin-top: 3rem;
-
+  padding: 2em 0;
+  background: linear-gradient(
+    90deg,
+    rgba(36, 47, 92, 1) 0%,
+    rgba(58, 165, 219, 1) 100%
+  );
   h3 {
     font-size: 2rem;
     margin-bottom: 2rem;
-    color: var(--blue1);
+    color: var(--blue3);
     font-weight: bold;
   }
 
   .products {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    gap: 1.5rem;
-    justify-items: center;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
   }
-`;
-
-export const ProductCard = styled.div`
-  background-color: white;
-  border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  text-align: center;
-  padding: 1.5rem;
-  width: 100%;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-
-  &:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-  }
-`;
-
-export const ProductImage = styled.img`
-  width: 100%;
-  height: 150px;
-  object-fit: contain;
-  margin-bottom: 1rem;
-`;
-
-export const ProductName = styled.p`
-  font-size: 1.2rem;
-  font-weight: bold;
-  color: #333;
 `;
