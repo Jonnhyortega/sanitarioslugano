@@ -11,12 +11,12 @@ export default function About() {
         </h1>
         <p>Brindando calidad y confianza desde 1989</p>
         <div className="buttons">
-          <a
+          {/* <a
             href="https://sanitarioslugano.mercadoshops.com.ar/"
             target="_blank"
           >
             Visitar tienda
-          </a>
+          </a> */}
           <a href="https://wa.link/bfy5bv" target="_blank">
             Pedir presupuesto
           </a>

@@ -10,9 +10,9 @@ export default function ProductCard({ product }) {
   };
   return (
     <ProductCardContainer
-      onClick={() => {
-        handleRedirect(product.link);
-      }}
+      // onClick={() => {
+      //   handleRedirect(product.link);
+      // }}
     >
       <ProductName>{product.name}</ProductName>
       <ProductImage src={product.img} alt={product.name} />

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { WelcomeContainer, Content } from "./WelcomeToPageStyles";
 import logo from "../../Imgs/LogoBlue.jpeg";
 
-export const WelcomeToPage = ({ onSiteClick }) => {
+export const WelcomeToPage = () => {
   const [showWelcome, setShow] = useState(true);
 
   const handleShowWelcome = () => {
@@ -15,7 +15,7 @@ export const WelcomeToPage = ({ onSiteClick }) => {
       <Content>
         <img src={logo} alt="Logo Sanitarios" />
         <h2>Bienvenido</h2>
-        <div className="links">
+        {/* <div className="links">
           <a
             href="https://sanitarioslugano.mercadoshops.com.ar/"
             target="_blank"
@@ -32,7 +32,7 @@ export const WelcomeToPage = ({ onSiteClick }) => {
           >
             Sitio web
           </a>
-        </div>
+        </div> */}
       </Content>
     </WelcomeContainer>
   );
