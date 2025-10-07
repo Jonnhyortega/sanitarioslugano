@@ -1,11 +1,3 @@
-# Ir a la raíz del proyecto
-cd ..
-
-# Construir el proyecto
-npm run build
-
-# Ir al directorio de salida
-cd dist
 
 # Obtener fecha y hora actual
 $fecha = Get-Date -Format "yyyy-MM-dd HH:mm:ss"
