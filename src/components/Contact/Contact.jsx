@@ -31,7 +31,7 @@ const Contact = () => {
           <FaInstagram />
           <span>Instagram</span>
         </ContactLink>
-        <ContactLink
+        {/* <ContactLink
           href="https://sanitarioslugano.mercadoshops.com.ar/"
           target="_blank"
           rel="noopener noreferrer"
@@ -39,7 +39,8 @@ const Contact = () => {
         >
           <IoStorefront />
           <span>Tienda</span>
-        </ContactLink>
+        </ContactLink> */}
+        
         <ContactLink
           href="https://maps.app.goo.gl/ZUzs49kHoFAYtVyw8"
           target="_blank"

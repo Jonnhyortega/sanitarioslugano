@@ -6,7 +6,7 @@ export const ContactContainer = styled.div`
   align-items: center;
   text-align: center;
   padding: 3rem;
-  background-color: #f9f9f9;
+  background: linear-gradient(var(--blue2) 50%, var(--blue3));
   border-radius: 10px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   gap: 2rem;
