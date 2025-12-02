@@ -14,7 +14,7 @@ const App = () => {
   useEffect(()=>{
     setTimeout(() => {
       setShowPage(true);
-    }, 1000);
+    }, 1800);
   },[])
 
   return (
