@@ -31,7 +31,7 @@ export const navItems = (cfg = site) => {
 };
 
 export const budgetLink = (cfg = site) =>
-  whatsappLink("¡Hola! Quiero pedir un presupuesto.", cfg);
+  whatsappLink("¡Hola! Quiero pedir un presupuesto", cfg);
 
 export const heroCtas = (cfg = site) => ({
   primary: { label: "Pedir presupuesto", href: budgetLink(cfg), external: true },

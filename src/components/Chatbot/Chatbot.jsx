@@ -2,10 +2,23 @@ import { useState, useRef, useEffect, useCallback } from "react";
 import { PiChatsCircle, PiArrowUp, PiX } from "react-icons/pi";
 import { ChatbotContainer } from "./ChatbotStyles";
 import callChatAPI from "../../utils/chatbot";
+import { parseMessage } from "../../utils/formatMessage";
 import { chatFacts, budgetLink, hasStore } from "../../config/links";
 import { dotWave } from "ldrs";
 
 dotWave.register();
+
+const MessageContent = ({ text }) =>
+  parseMessage(text).map((token, i) => {
+    if (token.type === "bold") return <strong key={i}>{token.value}</strong>;
+    if (token.type === "link")
+      return (
+        <a key={i} href={token.href} target="_blank" rel="noopener noreferrer">
+          {token.label}
+        </a>
+      );
+    return token.value;
+  });
 
 export const Chatbot = () => {
   const [chatOpen, setChatOpen] = useState(false);
@@ -155,7 +168,7 @@ ${hasStore() ? "" : "  - No prometer compra online ni carrito."}
             <div className="chat-messages">
               {messages.map((m, i) => (
                 <div key={i} className={`message ${m.from}`}>
-                  {m.text}
+                  <MessageContent text={m.text} />
                 </div>
               ))}
               {loading && (

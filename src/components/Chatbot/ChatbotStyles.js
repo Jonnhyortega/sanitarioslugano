@@ -112,6 +112,29 @@ export const ChatbotContainer = styled.section`
     align-self: flex-start;
     background: var(--bone-50);
     color: var(--ink-700);
+
+    a {
+      display: inline-flex;
+      margin-top: 6px;
+      padding: 6px 12px;
+      border-radius: 3px;
+      background: var(--navy-700);
+      color: var(--white);
+      font-weight: 600;
+      text-decoration: none;
+
+      &:hover {
+        background: var(--navy-900);
+      }
+    }
+  }
+
+  .message strong {
+    font-weight: 600;
+  }
+
+  .message.user a {
+    color: inherit;
   }
 
   .message.user {
