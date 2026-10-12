@@ -46,7 +46,7 @@ export const site = {
   address: "Dirección a completar — Villa Lugano, CABA",
   hours: ["Lunes a viernes: a completar", "Sábados: a completar"],
   storeUrl: null, // ← URL de Tiendanube cuando esté disponible
-  developer: { name: "Astral Vision Estudio", url: "https://www.astralvisionestudio.com" },
+  developer: { name: "Astral Vision Estudio", url: "https://www.astralvisionestudio.com/servicios/landing-pages" },
 };
 ```
 
@@ -135,7 +135,7 @@ Sin gradientes en la UI. `--stone-400` no se usa para texto sobre blanco (no cum
 6. **Brands** — marquee infinito de logos (lista duplicada, animación CSS); grises con `filter: grayscale(1)` → color en hover; pausa en hover y estático con reduced-motion.
 7. **Products** — grilla responsive (auto-fill, min 220px). Tarjeta: imagen sobre bone (aspect-ratio 1, `object-fit: contain`), marca como eyebrow, nombre en Fraunces, botón según modo tienda.
 8. **Contact** — bloque `--navy-900`: izq título "Visitanos o escribinos", dirección, horarios, botones (WhatsApp, Instagram, Cómo llegar, Reseñas, Tienda si existe); der iframe de Google Maps (`loading="lazy"`, `title`).
-9. **Footer** — `--navy-900` más oscuro / borde superior; 4 columnas: logo + bajada, navegación, contacto, redes; fila inferior con © año dinámico y el texto "Desarrollado por Astral Vision Estudio", enlazado a `site.developer.url` (https://www.astralvisionestudio.com, `target="_blank"`, `rel="noopener noreferrer"`). Reemplaza el ícono de usuario que apuntaba al Instagram del estudio.
+9. **Footer** — `--navy-900` más oscuro / borde superior; 4 columnas: logo + bajada, navegación, contacto, redes; fila inferior con © año dinámico y el texto "Desarrollado por Astral Vision Estudio", enlazado a `site.developer.url` (https://www.astralvisionestudio.com/servicios/landing-pages, `target="_blank"`, `rel="noopener noreferrer"`). Reemplaza el ícono de usuario que apuntaba al Instagram del estudio.
 10. **Chatbot** — botón flotante circular navy con ícono de `react-icons` (sin imagen de icons8); header navy; burbujas usuario navy / bot bone; quick reply de presupuesto usa `whatsappLink()`.
 
 ## 4. Correcciones incluidas
