@@ -58,7 +58,6 @@ body {
   font-size: 16px;
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
-  overflow-x: hidden;
 }
 
 h1,
@@ -82,8 +81,14 @@ a {
 }
 
 :focus-visible {
-  outline: 2px solid var(--sky-500);
+  outline: 2px solid var(--navy-700);
   outline-offset: 3px;
+}
+
+/* Sobre fondos navy el acento celeste contrasta mejor. */
+#contacto :focus-visible,
+footer :focus-visible {
+  outline-color: var(--sky-500);
 }
 
 ::selection {

@@ -43,7 +43,9 @@ export const Body = styled.div`
 
   h3 {
     flex: 1;
-    font-size: clamp(17px, 2vw, 20px);
+    font-size: clamp(16px, 2vw, 20px);
+    overflow-wrap: anywhere;
+    hyphens: auto;
     margin-bottom: 20px;
   }
 

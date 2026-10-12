@@ -8,10 +8,10 @@ export const StatsSection = styled.section`
 
 export const List = styled.dl`
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(2, minmax(0, 1fr));
 
   ${media.md} {
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(4, minmax(0, 1fr));
   }
 `;
 
@@ -20,7 +20,8 @@ export const Item = styled.div`
   flex-direction: column-reverse;
   justify-content: flex-end;
   gap: 4px;
-  padding: 32px 20px;
+  min-width: 0;
+  padding: 28px 12px;
   border-left: 1px solid var(--line);
 
   &:nth-child(odd) {
@@ -51,7 +52,8 @@ export const Item = styled.div`
 
   dd {
     font-family: var(--font-serif);
-    font-size: clamp(32px, 4vw, 44px);
+    font-size: clamp(26px, 4vw, 44px);
+    overflow-wrap: anywhere;
     font-weight: 500;
     line-height: 1.1;
     color: var(--navy-900);
