@@ -1,7 +1,8 @@
 import Navigate from "./components/Navigate/Navigate";
 import Hero from "./components/Hero/Hero";
 import Stats from "./components/Stats/Stats";
-import Us from "./components/Us/Us";
+import History from "./components/History/History";
+import Professionals from "./components/Professionals/Professionals";
 import Products from "./components/Products/Products";
 import Contact from "./components/Contact/Contact";
 import Footer from "./components/Footer/Footer";
@@ -14,7 +15,8 @@ export default function App() {
       <main>
         <Hero />
         <Stats />
-        <Us />
+        <History />
+        <Professionals />
         <Products />
         <Contact />
       </main>
