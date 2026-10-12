@@ -1,10 +1,11 @@
+import { PiArrowRight } from "react-icons/pi";
 import heroImg from "../../Imgs/HomeImgs/fondoHome.jpeg";
+import { site } from "../../config/site";
 import { heroCtas } from "../../config/links";
 import { Container } from "../ui/Section";
 import Eyebrow from "../ui/Eyebrow";
 import Button from "../ui/Button";
-import Reveal from "../ui/Reveal";
-import { HeroSection, Grid, Copy, Actions, Figure } from "./HeroStyles";
+import { HeroSection, Grid, Copy, Aside, Actions, Figure } from "./HeroStyles";
 
 export default function Hero() {
   const { primary, secondary } = heroCtas();
@@ -16,6 +17,8 @@ export default function Hero() {
           <Copy>
             <Eyebrow>Sanitarios Lugano · Villa Lugano, CABA</Eyebrow>
             <h1>Calidad y confianza en sanitarios desde 1989</h1>
+          </Copy>
+          <Aside>
             <p className="lead">
               Sanitarios, griferías y artículos de plomería para particulares y profesionales. Venta
               mayorista y minorista con asesoramiento personalizado.
@@ -28,13 +31,20 @@ export default function Hero() {
                 {secondary.label}
               </Button>
             </Actions>
-          </Copy>
-          <Reveal>
-            <Figure>
-              <img src={heroImg} alt="Local de Sanitarios Lugano" />
-            </Figure>
-          </Reveal>
+          </Aside>
         </Grid>
+        <Figure>
+          <div className="frame">
+            <img src={heroImg} alt="Frente del local de Sanitarios Lugano en Villa Lugano" />
+            <figcaption>
+              <Eyebrow as="p">Nuestro local</Eyebrow>
+              <strong>{site.address}</strong>
+              <a href={site.mapsUrl} target="_blank" rel="noopener noreferrer">
+                Cómo llegar <PiArrowRight aria-hidden="true" />
+              </a>
+            </figcaption>
+          </div>
+        </Figure>
       </Container>
     </HeroSection>
   );
