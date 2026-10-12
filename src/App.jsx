@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import "./App.css";
 import About from "./components/About/About";
 import Navigate from "./components/Navigate/Navigate";
 import { WelcomeToPage } from "./components/WelcomeToPage/WelcomeToPage";
