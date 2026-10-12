@@ -80,3 +80,21 @@ export const timeline = (cfg = site) => {
   }
   return items;
 };
+
+const isPlaceholder = (text) => /a completar/i.test(text);
+
+// Datos del negocio que el chatbot recibe en su contexto.
+export const chatFacts = (cfg = site) => {
+  const lines = [
+    hasStore(cfg)
+      ? `- Tiene tienda online en ${cfg.storeUrl}; para compras online derivar ahí. No inventar precios ni stock.`
+      : "- No tiene venta online directa. La compra se gestiona por contacto directo (WhatsApp, llamada o visita).",
+    `- WhatsApp oficial: ${whatsappLink(undefined, cfg)}`,
+    "- Medios de pago: Mercado Pago y efectivo.",
+  ];
+  if (!isPlaceholder(cfg.address)) lines.push(`- Dirección: ${cfg.address}`);
+  else lines.push("- Local físico en Villa Lugano, Buenos Aires, Argentina.");
+  const hours = cfg.hours.filter((h) => !isPlaceholder(h));
+  if (hours.length) lines.push(`- Horarios: ${hours.join("; ")}`);
+  return lines.join("\n");
+};

@@ -8,6 +8,7 @@ import {
   heroCtas,
   contactLinks,
   timeline,
+  chatFacts,
 } from "./links";
 
 const base = { ...site, storeUrl: null };
@@ -116,5 +117,28 @@ describe("site", () => {
   });
   it("credits the developer landing page", () => {
     expect(site.developer.url).toBe("https://www.astralvisionestudio.com/servicios/landing-pages");
+  });
+});
+
+describe("chatFacts", () => {
+  it("says there is no online sale without a store", () => {
+    expect(chatFacts(base)).toMatch(/No tiene venta online directa/);
+  });
+  it("points to the store with a store, without allowing invented prices", () => {
+    const facts = chatFacts(store);
+    expect(facts).toMatch("https://tienda.test");
+    expect(facts).not.toMatch(/No tiene venta online/);
+    expect(facts).toMatch(/No inventar precios/);
+  });
+  it("omits placeholder address and hours", () => {
+    expect(chatFacts(base)).not.toMatch(/a completar/);
+  });
+  it("includes real address and hours", () => {
+    const facts = chatFacts({ ...base, address: "Av. Real 123", hours: ["Lun a Vie 8 a 18"] });
+    expect(facts).toMatch("Av. Real 123");
+    expect(facts).toMatch("Lun a Vie 8 a 18");
+  });
+  it("includes the official WhatsApp", () => {
+    expect(chatFacts(base)).toMatch("wa.me/5491171020921");
   });
 });

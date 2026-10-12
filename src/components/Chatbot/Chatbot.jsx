@@ -1,18 +1,11 @@
-// src/components/Chatbot.jsx
-"use client";
-
-import React, { useState, useRef, useEffect, useCallback } from "react";
+import { useState, useRef, useEffect, useCallback } from "react";
+import { PiChatsCircle, PiArrowUp, PiX } from "react-icons/pi";
 import { ChatbotContainer } from "./ChatbotStyles";
 import callChatAPI from "../../utils/chatbot";
-import "animate.css";
-import { faArrowUp } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { chatFacts, budgetLink, hasStore } from "../../config/links";
+import { dotWave } from "ldrs";
 
-import { dotWave } from 'ldrs'
-dotWave.register()
-
-import { mirage } from "ldrs";
-mirage.register();
+dotWave.register();
 
 export const Chatbot = () => {
   const [chatOpen, setChatOpen] = useState(false);
@@ -53,18 +46,16 @@ export const Chatbot = () => {
 
   🧭 Qué sabe LuganoBot:
   - Vende productos sanitarios y accesorios de baño: inodoros, lavatorios, bidets, griferías, muebles, bachas, duchas, etc.
-  - No tiene venta online directa. La compra se gestiona por contacto directo (WhatsApp, llamada o visita).
-  - Medios de pago: Mercado Pago y efectivo.
-  - Local físico en Buenos Aires, Argentina.
+${chatFacts()}
 
   🚫 Qué NO debe hacer:
   - No inventar precios ni productos.
-  - No prometer compra online ni carrito.
+${hasStore() ? "" : "  - No prometer compra online ni carrito."}
   - No responder sobre temas ajenos.
 
   🪄 Ejemplo:
   Usuario: ¿Tienen inodoros Ferrum?
-  LuganoBot: ¡Sí! Trabajamos con modelos Ferrum, Roca y Piazza 💧. ¿Querés que te mande las opciones por WhatsApp o preferís ver el catálogo acá?
+  LuganoBot: ¡Sí! Trabajamos con modelos Ferrum, Roca y Piazza 💧. ¿Querés que te pase el contacto por WhatsApp para ver opciones?
   `;
 
   const quickReplies = [
@@ -103,7 +94,7 @@ export const Chatbot = () => {
     switch (text) {
       case "¿Cómo puedo pedir un presupuesto?":
         reply =
-          "Podés pedir tu presupuesto directamente por WhatsApp 💬\n👉 https://wa.me/541158227373";
+          `Podés pedir tu presupuesto directamente por WhatsApp 💬\n👉 ${budgetLink()}`;
         break;
       case "¿Dónde los encuentro?":
         reply =
@@ -144,21 +135,20 @@ export const Chatbot = () => {
           onClick={toggleChat}
           aria-label="Abrir chat"
         >
-          <img
-            src="https://img.icons8.com/fluency/48/chatbot.png"
-            alt="Chat icon"
-          />
+          <PiChatsCircle aria-hidden="true" />
         </button>
       ) : (
         <div className="overlay" onClick={toggleChat}>
           <div
-            className="chat-window animate__animated animate__fadeInUp"
+            className="chat-window"
+            role="dialog"
+            aria-label="Chat con Sanitarios Lugano"
             onClick={(e) => e.stopPropagation()}
           >
             <header className="chat-header">
               <strong>Sanitarios Lugano</strong>
-              <button className="close-btn" onClick={toggleChat}>
-                ×
+              <button className="close-btn" onClick={toggleChat} aria-label="Cerrar chat">
+                <PiX aria-hidden="true" />
               </button>
             </header>
 
@@ -169,12 +159,7 @@ export const Chatbot = () => {
                 </div>
               ))}
               {loading && (
-                // Default values shown
-                  <l-dot-wave
-                    size="47"
-                    speed="1" 
-                    color="#242f5c"
-                  ></l-dot-wave>
+                <l-dot-wave size="47" speed="1" color="#242f5c"></l-dot-wave>
               )}
               <div ref={messagesEndRef} />
             </div>
@@ -193,9 +178,10 @@ export const Chatbot = () => {
                 placeholder="Escribí tu consulta..."
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
+                aria-label="Tu consulta"
               />
-              <button type="submit">
-                <FontAwesomeIcon icon={faArrowUp} />
+              <button type="submit" aria-label="Enviar">
+                <PiArrowUp aria-hidden="true" />
               </button>
             </form>
           </div>
