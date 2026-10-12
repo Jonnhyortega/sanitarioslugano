@@ -14,7 +14,8 @@ const Eyebrow = styled.p`
 
   &::before {
     content: "";
-    width: 24px;
+    /* Dentro de un [data-scroll] la línea se dibuja a medida que el bloque se arma. */
+    width: calc(24px * var(--in, 1));
     height: 1px;
     background: var(--sky-500);
     flex-shrink: 0;

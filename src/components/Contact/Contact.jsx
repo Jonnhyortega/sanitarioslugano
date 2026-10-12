@@ -20,7 +20,7 @@ export default function Contact() {
     <Section id="contacto" $tone="navy">
       <Container>
         <Grid>
-          <div>
+          <div data-scroll="left">
             <Eyebrow $light>Contacto</Eyebrow>
             <h2>Visitanos o escribinos</h2>
             <Details>
@@ -65,6 +65,7 @@ export default function Contact() {
             </Actions>
           </div>
           <Map
+            data-scroll="curtain"
             src={site.mapsEmbed}
             title="Ubicación de Sanitarios Lugano en Google Maps"
             loading="lazy"

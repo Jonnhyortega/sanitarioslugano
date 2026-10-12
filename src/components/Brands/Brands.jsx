@@ -7,12 +7,12 @@ export default function Brands() {
   return (
     <BrandsSection id="marcas">
       <Container>
-        <SectionHeader>
+        <SectionHeader data-scroll>
           <Eyebrow>Marcas</Eyebrow>
           <h2>Trabajamos con marcas de primera calidad</h2>
         </SectionHeader>
       </Container>
-      <Viewport>
+      <Viewport data-scroll>
         <Track>
           {brands.map((b) => (
             <li key={b.name}>

@@ -95,3 +95,65 @@ footer :focus-visible {
   background: var(--sky-500);
   color: var(--white);
 }
+
+/* ---------- Movimiento ligado al scroll (ver src/motion/scrollScenes.js) ---------- */
+
+/* Barra de avance de lectura sobre el header. */
+.scroll-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1050;
+  height: 2px;
+  background: var(--sky-500);
+  transform: scaleX(var(--page-progress, 0));
+  transform-origin: left;
+  pointer-events: none;
+}
+
+/* --in sube de 0 a 1 al entrar por abajo; --out baja de 1 a 0 al salir por arriba.
+   Sin JS o con reduced-motion quedan en 1 y todo se ve normal. */
+/* Los desplazamientos laterales no deben generar scroll horizontal. */
+main {
+  overflow-x: clip;
+}
+
+[data-scroll] {
+  --in: 1;
+  --out: 1;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  [data-scroll] {
+    --shown: min(var(--in), var(--out));
+    opacity: var(--shown);
+    transform: translate3d(0, calc((1 - var(--in)) * 64px - (1 - var(--out)) * 48px), 0)
+      scale(calc(0.96 + 0.04 * var(--shown)));
+    will-change: transform, opacity;
+  }
+
+  [data-scroll="left"] {
+    transform: translate3d(calc((1 - var(--in)) * -72px), calc((1 - var(--out)) * -40px), 0);
+  }
+
+  [data-scroll="right"] {
+    transform: translate3d(calc((1 - var(--in)) * 72px), calc((1 - var(--out)) * -40px), 0);
+  }
+
+  /* Tarjetas: llegan desde abajo, levemente giradas, y se pliegan hacia atrás al salir. */
+  [data-scroll="card"] {
+    transform: perspective(900px)
+      translate3d(0, calc((1 - var(--in)) * 96px - (1 - var(--out)) * 40px), 0)
+      rotateX(calc((1 - var(--in)) * 14deg - (1 - var(--out)) * 10deg))
+      scale(calc(0.9 + 0.1 * var(--shown)));
+    transform-origin: 50% 100%;
+  }
+
+  /* Imágenes y mapas: se descubren como una cortina de abajo hacia arriba. */
+  [data-scroll="curtain"] {
+    opacity: var(--out);
+    transform: translate3d(0, calc((1 - var(--out)) * -48px), 0);
+    clip-path: inset(calc((1 - var(--in)) * 100%) 0 0 0 round var(--radius));
+  }
+}

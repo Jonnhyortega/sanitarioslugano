@@ -12,7 +12,7 @@ export default function Stats() {
       <Container>
         <List>
           {stats.map((s) => (
-            <Item key={s.label}>
+            <Item key={s.label} data-scroll>
               <dt>{s.label}</dt>
               <dd>{s.value}</dd>
             </Item>

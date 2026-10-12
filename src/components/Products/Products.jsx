@@ -9,7 +9,7 @@ export default function Products() {
   return (
     <Section id="productos" $tone="bone">
       <Container>
-        <SectionHeader>
+        <SectionHeader data-scroll>
           <Eyebrow>Productos</Eyebrow>
           <h2>Destacados</h2>
           <p>
@@ -20,7 +20,7 @@ export default function Products() {
         </SectionHeader>
         <Grid>
           {products.map((product) => (
-            <li key={product.id}>
+            <li key={product.id} data-scroll="card">
               <ProductCard product={product} />
             </li>
           ))}
