@@ -1,43 +1,98 @@
 import styled from "styled-components";
+import { media } from "../../styles/theme";
 
 export const FooterContainer = styled.footer`
-  background: linear-gradient(
-    90deg,
-    rgba(58, 165, 219, 1) 0%,
-    rgba(36, 47, 92, 1) 88%
-  );
-  color: #ffffff;
-  padding: 1.5rem 2rem;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 1rem;
-  width: 100%;
-`;
+  background: var(--navy-950);
+  color: var(--stone-400);
+  font-size: 15px;
+  padding-top: 72px;
 
-export const FooterContent = styled.div`
-  display: flex;
-  gap: 2rem;
-  justify-content: center;
-  align-items: center;
-  flex-wrap: wrap;
-`;
+  a {
+    color: inherit;
+    text-decoration: none;
+    transition: color 0.2s ease;
 
-export const FooterLink = styled.a`
-  color: #ffffff;
-  text-decoration: none;
-  font-size: 1rem;
-  font-weight: 500;
-  transition: color 0.3s ease-in-out;
-  font-family: var(--funnel);
-  &:hover {
-    color: #ff9f00;
+    &:hover {
+      color: var(--white);
+    }
   }
 `;
 
-export const FooterCopyright = styled.p`
-  font-size: 0.875rem;
-  color: #bfbfbf;
-  text-align: center;
+export const Columns = styled.div`
+  display: grid;
+  gap: 40px;
+  padding-bottom: 56px;
+
+  ${media.sm} {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  ${media.lg} {
+    grid-template-columns: 1.4fr 1fr 1fr 1fr;
+  }
+
+  h3 {
+    margin-bottom: 16px;
+    font-family: var(--font-sans);
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--white);
+  }
+
+  ul {
+    list-style: none;
+    display: grid;
+    gap: 10px;
+  }
+`;
+
+export const BrandCol = styled.div`
+  img {
+    width: 56px;
+    height: 56px;
+    border-radius: var(--radius);
+    object-fit: cover;
+  }
+
+  p {
+    margin-top: 16px;
+    max-width: 280px;
+    font-family: var(--font-serif);
+    font-size: 18px;
+    color: var(--white);
+  }
+`;
+
+export const Social = styled.ul`
+  li a {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  svg {
+    font-size: 18px;
+  }
+`;
+
+export const Bottom = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 24px 0 32px;
+  border-top: 1px solid var(--line-light);
+  font-size: 13px;
+
+  ${media.md} {
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
+  a {
+    color: var(--white);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
 `;

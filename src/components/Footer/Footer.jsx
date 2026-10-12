@@ -1,51 +1,85 @@
-import React from "react";
-import {
-  FooterContainer,
-  FooterContent,
-  FooterLink,
-  FooterCopyright,
-} from "./FooterStyles";
-import { FaInstagram, FaWhatsapp, FaMapMarkerAlt, FaRegUser } from "react-icons/fa";
+import { FaInstagram, FaWhatsapp } from "react-icons/fa";
+import { PiMapPin } from "react-icons/pi";
+import logo from "../../Imgs/LogoWhite.jpeg";
+import { site } from "../../config/site";
+import { navItems, whatsappLink } from "../../config/links";
+import { Container } from "../ui/Section";
+import { FooterContainer, Columns, BrandCol, Social, Bottom } from "./FooterStyles";
 
-export const Footer = () => {
+const ext = { target: "_blank", rel: "noopener noreferrer" };
+
+export default function Footer() {
   return (
     <FooterContainer>
-      <FooterContent>
-        <FooterLink
-          href="https://www.instagram.com/sanitarios_lugano/"
-          target="_blank"
-          aria-label="Instagram"
-        >
-          <FaInstagram size={24} />
-        </FooterLink>
-        <FooterLink
-          href="https://api.whatsapp.com/send?phone=541171020921&text=%C2%A1Hola!%20Estoy%20en%20la%20tienda%20SANITARIOSLUGANO%20y%20quiero%20pedir%20m%C3%A1s%20informaci%C3%B3n."
-          target="_blank"
-          aria-label="WhatsApp"
-        >
-          <FaWhatsapp size={24} />
-        </FooterLink>
-        <FooterLink
-          href="https://www.google.com/maps/place/Sanitarios+Lugano/@-34.6794643,-58.4751984,17z/data=!3m1!4b1!4m6!3m5!1s0x95bcc952380eab39:0xed8b413f1afdb5c4!8m2!3d-34.6794687!4d-58.4726235!16s%2Fg%2F1ydphgm5p?entry=tts&g_ep=EgoyMDI0MTExOS4yIPu8ASoASAFQAw%3D%3D"
-          target="_blank"
-          aria-label="Ubicación"
-        >
-          <FaMapMarkerAlt size={24} />
-        </FooterLink>
-        <FooterLink
-          href="https://www.instagram.com/astralvisionco"
-          target="_blank"
-          aria-label="Creador"
-        >
-          <FaRegUser size={24} />
-        </FooterLink>
-      </FooterContent>
-      <FooterCopyright>
-        © {new Date().getFullYear()} Sanitarios Lugano. Todos los derechos
-        reservados.
-      </FooterCopyright>
+      <Container>
+        <Columns>
+          <BrandCol>
+            <img src={logo} alt="Sanitarios Lugano" />
+            <p>Calidad y confianza desde {site.founded}.</p>
+          </BrandCol>
+
+          <nav aria-label="Pie de página">
+            <h3>Navegación</h3>
+            <ul>
+              {navItems().map((item) => (
+                <li key={item.href}>
+                  <a href={item.href} {...(item.external ? ext : {})}>
+                    {item.label}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </nav>
+
+          <div>
+            <h3>Contacto</h3>
+            <ul>
+              <li>{site.address}</li>
+              {site.hours.map((h) => (
+                <li key={h}>{h}</li>
+              ))}
+              <li>
+                <a href={whatsappLink()} {...ext}>
+                  {site.whatsappDisplay}
+                </a>
+              </li>
+            </ul>
+          </div>
+
+          <div>
+            <h3>Redes</h3>
+            <Social>
+              <li>
+                <a href={site.instagram} {...ext}>
+                  <FaInstagram aria-hidden="true" /> Instagram
+                </a>
+              </li>
+              <li>
+                <a href={whatsappLink()} {...ext}>
+                  <FaWhatsapp aria-hidden="true" /> WhatsApp
+                </a>
+              </li>
+              <li>
+                <a href={site.mapsUrl} {...ext}>
+                  <PiMapPin aria-hidden="true" /> Google Maps
+                </a>
+              </li>
+            </Social>
+          </div>
+        </Columns>
+
+        <Bottom>
+          <span>
+            © {new Date().getFullYear()} {site.name}. Todos los derechos reservados.
+          </span>
+          <span>
+            Desarrollado por{" "}
+            <a href={site.developer.url} {...ext}>
+              {site.developer.name}
+            </a>
+          </span>
+        </Bottom>
+      </Container>
     </FooterContainer>
   );
-};
-
-export default Footer;
+}

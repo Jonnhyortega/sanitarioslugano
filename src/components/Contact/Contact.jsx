@@ -1,67 +1,77 @@
-import React from "react";
-import { FaWhatsapp, FaInstagram, FaMapMarkedAlt } from "react-icons/fa";
-import { IoStorefront } from "react-icons/io5";
-import {
-  ContactContainer,
-  ContactLink,
-  Title,
-  ContactIconsWrapper,
-} from "./ContactStyles";
+import { FaWhatsapp, FaInstagram } from "react-icons/fa";
+import { PiMapPin, PiStar, PiStorefront } from "react-icons/pi";
+import { site } from "../../config/site";
+import { contactLinks, whatsappLink } from "../../config/links";
+import { Section, Container } from "../ui/Section";
+import Eyebrow from "../ui/Eyebrow";
+import Button from "../ui/Button";
+import { Grid, Details, Actions, Map } from "./ContactStyles";
 
-const Contact = () => {
-  return (
-    <ContactContainer id="contact">
-      <Title>Contacto</Title>
-      <ContactIconsWrapper>
-        <ContactLink
-          href="https://api.whatsapp.com/send?phone=541171020921&text=%C2%A1Hola!%20Estoy%20en%20la%20tienda%20SANITARIOSLUGANO%20y%20quiero%20pedir%20m%C3%A1s%20informaci%C3%B3n."
-          target="_blank"
-          rel="noopener noreferrer"
-          className="whatsapp"
-        >
-          <FaWhatsapp />
-          <span>WhatsApp</span>
-        </ContactLink>
-        <ContactLink
-          href="https://www.instagram.com/sanitarios_lugano/"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="instagram"
-        >
-          <FaInstagram />
-          <span>Instagram</span>
-        </ContactLink>
-        {/* <ContactLink
-          href="https://sanitarioslugano.mercadoshops.com.ar/"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="store"
-        >
-          <IoStorefront />
-          <span>Tienda</span>
-        </ContactLink> */}
-        
-        <ContactLink
-          href="https://maps.app.goo.gl/ZUzs49kHoFAYtVyw8"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="maps"
-        >
-          <FaMapMarkedAlt />
-          <span>Ubicación</span>
-        </ContactLink>
-        <ContactLink
-          href="https://www.google.com/maps/place/Sanitarios+Lugano/@-34.6794643,-58.4751984,17z/data=!4m8!3m7!1s0x95bcc952380eab39:0xed8b413f1afdb5c4!8m2!3d-34.6794687!4d-58.4726235!9m1!1b1!16s%2Fg%2F1ydphgm5p?entry=ttu&g_ep=EgoyMDI0MTExOS4yIKXMDSoASAFQAw%3D%3D"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="references"
-        >
-          <FaMapMarkedAlt />
-          <span>Referencias</span>
-        </ContactLink>
-      </ContactIconsWrapper>
-    </ContactContainer>
-  );
+const icons = {
+  whatsapp: FaWhatsapp,
+  instagram: FaInstagram,
+  maps: PiMapPin,
+  reviews: PiStar,
+  store: PiStorefront,
 };
 
-export default Contact;
+export default function Contact() {
+  return (
+    <Section id="contacto" $tone="navy">
+      <Container>
+        <Grid>
+          <div>
+            <Eyebrow $light>Contacto</Eyebrow>
+            <h2>Visitanos o escribinos</h2>
+            <Details>
+              <div>
+                <dt>Dirección</dt>
+                <dd>{site.address}</dd>
+              </div>
+              <div>
+                <dt>Horarios</dt>
+                <dd>
+                  <ul>
+                    {site.hours.map((h) => (
+                      <li key={h}>{h}</li>
+                    ))}
+                  </ul>
+                </dd>
+              </div>
+              <div>
+                <dt>WhatsApp</dt>
+                <dd>
+                  <a href={whatsappLink()} target="_blank" rel="noopener noreferrer">
+                    {site.whatsappDisplay}
+                  </a>
+                </dd>
+              </div>
+            </Details>
+            <Actions>
+              {contactLinks().map(({ key, label, href }) => {
+                const Icon = icons[key];
+                return (
+                  <Button
+                    key={key}
+                    href={href}
+                    external
+                    variant={key === "whatsapp" ? "light" : "outlineLight"}
+                  >
+                    <Icon aria-hidden="true" />
+                    {label}
+                  </Button>
+                );
+              })}
+            </Actions>
+          </div>
+          <Map
+            src={site.mapsEmbed}
+            title="Ubicación de Sanitarios Lugano en Google Maps"
+            loading="lazy"
+            referrerPolicy="no-referrer-when-downgrade"
+          />
+        </Grid>
+      </Container>
+    </Section>
+  );
+}
