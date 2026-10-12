@@ -1,37 +1,25 @@
-import React, { useEffect, useState } from "react";
-import About from "./components/About/About";
 import Navigate from "./components/Navigate/Navigate";
-import { WelcomeToPage } from "./components/WelcomeToPage/WelcomeToPage";
+import Hero from "./components/Hero/Hero";
+import Stats from "./components/Stats/Stats";
 import Us from "./components/Us/Us";
-import Contact from "./components/Contact/Contact";
 import Products from "./components/Products/Products";
+import Contact from "./components/Contact/Contact";
 import Footer from "./components/Footer/Footer";
 import Chatbot from "./components/Chatbot/Chatbot";
-const App = () => {
-  const [showPage, setShowPage] = useState(false);
 
-  useEffect(()=>{
-    setTimeout(() => {
-      setShowPage(true);
-    }, 1800);
-  },[])
-
+export default function App() {
   return (
     <>
-      {!showPage && <WelcomeToPage />}
-      {showPage && (
-        <>
-          <Navigate />
-          <About id="us" />
-          <Us />
-          <Products />
-          <Contact />
-          <Footer />
-          <Chatbot />
-        </>
-      )}
+      <Navigate />
+      <main>
+        <Hero />
+        <Stats />
+        <Us />
+        <Products />
+        <Contact />
+      </main>
+      <Footer />
+      <Chatbot />
     </>
   );
-};
-
-export default App;
+}

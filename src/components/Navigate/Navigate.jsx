@@ -1,195 +1,125 @@
-import React, { useState, useEffect } from "react";
-import { FaBars, FaTimes } from "react-icons/fa";
-import {
-  NavContainer,
-  NavMobileContainer,
-  MobileMenuButton,
-  MobileNavMenu,
-} from "./NavigateStyles";
+import { useEffect, useState } from "react";
+import { PiList, PiX } from "react-icons/pi";
 import logo from "../../Imgs/LogoBlue.jpeg";
+import { navItems, budgetLink } from "../../config/links";
+import { Container } from "../ui/Section";
+import Button from "../ui/Button";
+import {
+  Header,
+  Bar,
+  Brand,
+  DesktopNav,
+  NavLink,
+  DesktopCta,
+  MenuButton,
+  MobilePanel,
+} from "./NavigateStyles";
 
-const Navigate = () => {
+const items = navItems();
+
+const externalProps = (item) =>
+  item.external ? { target: "_blank", rel: "noopener noreferrer" } : {};
+
+export default function Navigate() {
   const [scrolled, setScrolled] = useState(false);
-  const [select, setSelected] = useState("inicio");
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [lastScrollY, setLastScrollY] = useState(0);
-
-  const handleSelect = (elementToSelect) => {
-    setSelected(elementToSelect);
-    setMobileMenuOpen(false);
-  };
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [active, setActive] = useState("#inicio");
 
   useEffect(() => {
-    const handleScroll = () => {
-      const currentScrollY = window.scrollY;
+    const onScroll = () => setScrolled(window.scrollY > 8);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
-      if (currentScrollY > lastScrollY && currentScrollY > 50) {
-        setScrolled(true);
-      } else if (currentScrollY < lastScrollY) {
-        setScrolled(false);
-      }
+  // Resalta el item de la sección visible.
+  useEffect(() => {
+    if (typeof IntersectionObserver === "undefined") return;
+    const sections = items
+      .filter((i) => !i.external)
+      .map((i) => document.querySelector(i.href))
+      .filter(Boolean);
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) setActive(`#${entry.target.id}`);
+        });
+      },
+      { rootMargin: "-45% 0px -50% 0px" }
+    );
+    sections.forEach((s) => observer.observe(s));
+    return () => observer.disconnect();
+  }, []);
 
-      setLastScrollY(currentScrollY);
-    };
-
-    window.addEventListener("scroll", handleScroll);
-
+  useEffect(() => {
+    if (!menuOpen) return;
+    const onKey = (e) => e.key === "Escape" && setMenuOpen(false);
+    const previous = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    window.addEventListener("keydown", onKey);
     return () => {
-      window.removeEventListener("scroll", handleScroll);
+      document.body.style.overflow = previous;
+      window.removeEventListener("keydown", onKey);
     };
-  }, [lastScrollY]);
+  }, [menuOpen]);
 
-  const handleSmoothScroll = (event) => {
-    event.preventDefault();
-    const targetId = event.currentTarget.getAttribute("href").substring(1);
-    const targetElement = document.getElementById(targetId);
-
-    if (targetElement) {
-      window.scrollTo({
-        top: targetElement.offsetTop,
-        behavior: "smooth",
-      });
-    }
-  };
+  const closeMenu = () => setMenuOpen(false);
 
   return (
-    <>
-      <NavContainer $scrolled={scrolled}>
-        <img src={logo} alt="Logo empresa" />
-        <nav>
-          <a
-            onClick={(e) => {
-              handleSelect("inicio");
-              handleSmoothScroll(e);
-            }}
-            style={{
-              borderBottom:
-                select === "inicio"
-                  ? "2px solid var(--blue2)"
-                  : "2px solid transparent",
-            }}
-            href="#home"
-          >
-            Inicio
-          </a>
-          <a
-            onClick={(e) => {
-              handleSelect("about");
-              handleSmoothScroll(e);
-            }}
-            style={{
-              borderBottom:
-                select === "about"
-                  ? "2px solid var(--blue2)"
-                  : "2px solid transparent",
-            }}
-            href="#us"
-          >
-            Nosotros
-          </a>
-          <a
-            onClick={(e) => {
-              handleSelect("products");
-              handleSmoothScroll(e);
-            }}
-            style={{
-              borderBottom:
-                select === "products"
-                  ? "2px solid var(--blue2)"
-                  : "2px solid transparent",
-            }}
-            href="#products"
-          >
-            Productos
-          </a>
-          <a
-            onClick={(e) => {
-              handleSelect("contact");
-              handleSmoothScroll(e);
-            }}
-            style={{
-              borderBottom:
-                select === "contact"
-                  ? "2px solid var(--blue2)"
-                  : "2px solid transparent",
-            }}
-            href="#contact"
-          >
-            Contacto
-          </a>
-        </nav>
-      </NavContainer>
+    <Header $scrolled={scrolled || menuOpen}>
+      <Container as="div" style={{ height: "100%" }}>
+        <Bar>
+          <Brand href="#inicio" onClick={closeMenu} aria-label="Sanitarios Lugano, ir al inicio">
+            <img src={logo} alt="" />
+            <span>Sanitarios Lugano</span>
+          </Brand>
 
-      <NavMobileContainer>
-        <img src={logo} alt="Logo empresa" />
-        <MobileMenuButton onClick={() => setMobileMenuOpen(!mobileMenuOpen)}>
-          {mobileMenuOpen ? <FaTimes /> : <FaBars />}
-        </MobileMenuButton>
-        <MobileNavMenu $mobileMenuOpen={mobileMenuOpen}>
-          <a
-            onClick={(e) => {
-              handleSelect("inicio");
-              handleSmoothScroll(e);
-            }}
-            style={{
-              borderBottom:
-                select === "inicio"
-                  ? "10px solid white"
-                  : "10px solid transparent",
-            }}
-            href="#home"
+          <DesktopNav aria-label="Principal">
+            {items.map((item) => (
+              <NavLink
+                key={item.href}
+                href={item.href}
+                $active={active === item.href}
+                aria-current={active === item.href ? "true" : undefined}
+                {...externalProps(item)}
+              >
+                {item.label}
+              </NavLink>
+            ))}
+          </DesktopNav>
+
+          <DesktopCta>
+            <Button href={budgetLink()} external>
+              Pedir presupuesto
+            </Button>
+          </DesktopCta>
+
+          <MenuButton
+            type="button"
+            onClick={() => setMenuOpen((open) => !open)}
+            aria-expanded={menuOpen}
+            aria-controls="menu-mobile"
+            aria-label={menuOpen ? "Cerrar menú" : "Abrir menú"}
           >
-            Inicio
-          </a>
-          <a
-            onClick={(e) => {
-              handleSelect("about");
-              handleSmoothScroll(e);
-            }}
-            style={{
-              borderBottom:
-                select === "about"
-                  ? "10px solid white"
-                  : "10px solid transparent",
-            }}
-            href="#us"
-          >
-            Nosotros
-          </a>
-          <a
-            onClick={(e) => {
-              handleSelect("products");
-              handleSmoothScroll(e);
-            }}
-            style={{
-              borderBottom:
-                select === "products"
-                  ? "10px solid white"
-                  : "10px solid transparent",
-            }}
-            href="#products"
-          >
-            Productos
-          </a>
-          <a
-            onClick={(e) => {
-              handleSelect("contact");
-              handleSmoothScroll(e);
-            }}
-            style={{
-              borderBottom:
-                select === "contact"
-                  ? "10px solid white"
-                  : "10px solid transparent",
-            }}
-            href="#contact"
-          >
-            Contacto
-          </a>
-        </MobileNavMenu>
-      </NavMobileContainer>
-    </>
+            {menuOpen ? <PiX /> : <PiList />}
+          </MenuButton>
+        </Bar>
+      </Container>
+
+      {menuOpen && (
+        <MobilePanel id="menu-mobile">
+          <nav aria-label="Principal">
+            {items.map((item) => (
+              <a key={item.href} href={item.href} onClick={closeMenu} {...externalProps(item)}>
+                {item.label}
+              </a>
+            ))}
+          </nav>
+          <Button href={budgetLink()} external style={{ marginTop: 32 }}>
+            Pedir presupuesto
+          </Button>
+        </MobilePanel>
+      )}
+    </Header>
   );
-};
-
-export default Navigate;
+}

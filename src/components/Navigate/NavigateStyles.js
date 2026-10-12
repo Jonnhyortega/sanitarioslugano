@@ -1,125 +1,139 @@
 import styled from "styled-components";
+import { media } from "../../styles/theme";
 
-export const NavContainer = styled.div`
-  display: flex;
-  width: 100%;
-  height: ${({ $scrolled }) => ($scrolled ? "60px" : "100px")};
-  align-items: center;
-  justify-content: space-around;
-  padding: 1rem 2rem;
-  background: linear-gradient(
-    90deg,
-    rgba(36, 47, 92, 1) 66%,
-    rgba(58, 165, 219, 1) 91%
-  );
-
+export const Header = styled.header`
   position: fixed;
-  top: 0;
+  inset: 0 0 auto 0;
   z-index: 1000;
-  box-shadow: 1px 1px 20px var(--blue1);
-  transition: all 0.4s ease-in-out;
+  height: var(--header-h);
+  background: ${({ $scrolled }) => ($scrolled ? "var(--white)" : "transparent")};
+  border-bottom: 1px solid ${({ $scrolled }) => ($scrolled ? "var(--line)" : "transparent")};
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+`;
 
-  @media (max-width: 568px) {
-    display: none;
-  }
+export const Bar = styled.div`
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+`;
+
+export const Brand = styled.a`
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  text-decoration: none;
+  color: var(--navy-900);
+  position: relative;
+  z-index: 2;
 
   img {
-    width: ${({ $scrolled }) => ($scrolled ? "50px" : "80px")};
-    transition: all 0.4s ease-in-out;
+    width: 44px;
+    height: 44px;
+    border-radius: var(--radius);
+    object-fit: cover;
   }
 
-  nav {
-    display: ${({ $scrolled }) => ($scrolled ? "none" : "flex")};
+  span {
+    font-family: var(--font-serif);
+    font-size: 19px;
+    white-space: nowrap;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+  }
+`;
+
+export const DesktopNav = styled.nav`
+  display: none;
+
+  ${media.lg} {
+    display: flex;
     align-items: center;
-    gap: 30px;
+    gap: 28px;
+  }
+`;
+
+export const NavLink = styled.a`
+  position: relative;
+  padding: 6px 0;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--navy-900);
+  text-decoration: none;
+
+  &::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 2px;
+    background: var(--sky-500);
+    transform: scaleX(${({ $active }) => ($active ? 1 : 0)});
+    transform-origin: left;
+    transition: transform 0.25s ease;
+  }
+
+  &:hover::after {
+    transform: scaleX(1);
+  }
+`;
+
+export const DesktopCta = styled.div`
+  display: none;
+
+  ${media.lg} {
+    display: block;
+  }
+`;
+
+export const MenuButton = styled.button`
+  position: relative;
+  z-index: 2;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--white);
+  color: var(--navy-900);
+  font-size: 22px;
+  cursor: pointer;
+
+  ${media.lg} {
+    display: none;
+  }
+`;
+
+export const MobilePanel = styled.div`
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: calc(var(--header-h) + 32px) var(--gutter) 40px;
+  background: var(--bone-50);
+  overflow-y: auto;
+
+  nav {
+    display: flex;
+    flex-direction: column;
   }
 
   nav a {
-    border-bottom: 2px solid var(--blue1);
-    color: white;
-    font-weight: bold;
+    padding: 14px 0;
+    border-bottom: 1px solid var(--line);
+    font-family: var(--font-serif);
+    font-size: 28px;
+    color: var(--navy-900);
     text-decoration: none;
-    transition: color 0.2s, border-bottom 0.2s;
-    font-family: var(--funnel);
-
-    &:hover {
-      color: var(--blue2);
-    }
-  }
-`;
-
-export const NavMobileContainer = styled.div`
-  display: none;
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  background: linear-gradient(
-    90deg,
-    rgba(36, 47, 92, 1) 66%,
-    rgba(58, 165, 219, 1) 91%
-  );
-  z-index: 1000;
-
-  img {
-    width: 50px;
-    margin: 1rem;
   }
 
-  @media (max-width: 568px) {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0 1rem;
-  }
-`;
-
-export const MobileMenuButton = styled.button`
-  background: none;
-  border: none;
-  color: white;
-  font-size: 1.2rem;
-  cursor: pointer;
-  z-index: 1001;
-
-  &:hover {
-    color: var(--blue2);
-  }
-`;
-
-export const MobileNavMenu = styled.nav`
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100vh;
-  padding: 0 8em 0 0;
-  background: linear-gradient(
-    190deg,
-    rgba(36, 47, 92, 1) 66%,
-    rgba(58, 165, 219, 1) 91%
-  );
-  display: flex;
-  flex-direction: column;
-  align-items: end;
-  justify-content: center;
-  transform: ${({ $mobileMenuOpen }) =>
-    $mobileMenuOpen ? "translateY(0)" : "translateY(-100%)"};
-  transition: transform 0.4s ease-in-out;
-
-  a {
-    border-bottom: 2px solid var(--blue1);
-    color: white;
-    font-weight: bold;
-    text-decoration: none;
-    font-family: var(--funnel);
-    font-size: 1.5rem;
-    text-align: left;
-    margin: 1rem 0;
-    transition: color 0.2s, border-bottom 0.2s;
-    font-family: var(--funnel);
-    &:hover {
-      color: var(--blue2);
-    }
+  ${media.lg} {
+    display: none;
   }
 `;
