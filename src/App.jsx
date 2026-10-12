@@ -3,6 +3,7 @@ import Hero from "./components/Hero/Hero";
 import Stats from "./components/Stats/Stats";
 import History from "./components/History/History";
 import Professionals from "./components/Professionals/Professionals";
+import Brands from "./components/Brands/Brands";
 import Products from "./components/Products/Products";
 import Contact from "./components/Contact/Contact";
 import Footer from "./components/Footer/Footer";
@@ -17,6 +18,7 @@ export default function App() {
         <Stats />
         <History />
         <Professionals />
+        <Brands />
         <Products />
         <Contact />
       </main>

@@ -1,31 +1,47 @@
 import styled from "styled-components";
 
-export const ProductCardContainer = styled.a`
-  border: 1px solid var(--blue1);  
-  border-radius: 8px;
-  text-align: center;
-  padding: 1.5rem;
-  width: 300px;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  cursor: pointer;
-  background: white;
+export const Card = styled.article`
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background: var(--white);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  overflow: hidden;
+  transition: border-color 0.2s ease;
+
   &:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    border-color: var(--navy-700);
   }
 `;
 
-export const ProductImage = styled.img`
-  width: 100%;
-  height: 150px;
-  object-fit: contain;
-  margin-bottom: 1rem;
+export const Media = styled.div`
+  aspect-ratio: 1;
+  padding: 24px;
+  background: var(--bone-50);
+  border-bottom: 1px solid var(--line);
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    mix-blend-mode: multiply;
+  }
 `;
 
-export const ProductName = styled.p`
-  font-size: 1.2rem;
-  font-weight: bold;
-  color: var(--blue1);
-  font-family: var(--funnel);
-  margin-bottom: 10px;
+export const Body = styled.div`
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  padding: 20px 20px 24px;
+
+  p {
+    margin-bottom: 8px;
+  }
+
+  h3 {
+    flex: 1;
+    font-size: 20px;
+    margin-bottom: 20px;
+  }
 `;

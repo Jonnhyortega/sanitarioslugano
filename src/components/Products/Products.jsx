@@ -1,35 +1,31 @@
-import React from "react";
-import {
-  ProductContainer,
-  Banner,
-  ProductHighlightContainer,
-} from "./ProductsStyles";
-import { brands } from "../../data/brands";
 import { products } from "../../data/products";
-import ProductCard from "../ProductCard/ProductCard"; // Asegúrate de importar el componente ProductCard correctamente
+import { hasStore } from "../../config/links";
+import { Section, Container, SectionHeader } from "../ui/Section";
+import Eyebrow from "../ui/Eyebrow";
+import ProductCard from "../ProductCard/ProductCard";
+import { Grid } from "./ProductsStyles";
 
-const Products = () => {
+export default function Products() {
   return (
-    <ProductContainer id="products">
-      <Banner>
-        <h2>Marcas de primera calidad</h2>
-        <div className="brand-logos">
-          {brands.map((b) => (
-            <img key={b.name} src={b.logo} alt={b.name} />
-          ))}
-        </div>
-      </Banner>
-
-      <ProductHighlightContainer>
-        <h3>Productos destacados</h3>
-        <div className="products">
+    <Section id="productos" $tone="bone">
+      <Container>
+        <SectionHeader>
+          <Eyebrow>Productos</Eyebrow>
+          <h2>Destacados</h2>
+          <p>
+            {hasStore()
+              ? "Una selección de nuestro catálogo. Encontrá todos los productos en la tienda online."
+              : "Una selección de nuestro catálogo. Consultanos por stock, precios y alternativas."}
+          </p>
+        </SectionHeader>
+        <Grid>
           {products.map((product) => (
-            <ProductCard key={product.id} product={product} />
+            <li key={product.id}>
+              <ProductCard product={product} />
+            </li>
           ))}
-        </div>
-      </ProductHighlightContainer>
-    </ProductContainer>
+        </Grid>
+      </Container>
+    </Section>
   );
-};
-
-export default Products;
+}
