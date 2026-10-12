@@ -16,14 +16,16 @@ export const Card = styled.article`
 `;
 
 export const Media = styled.div`
+  position: relative;
   aspect-ratio: 1;
-  padding: 24px;
   background: var(--bone-50);
   border-bottom: 1px solid var(--line);
 
   img {
-    width: 100%;
-    height: 100%;
+    position: absolute;
+    inset: 20px;
+    width: calc(100% - 40px);
+    height: calc(100% - 40px);
     object-fit: contain;
     mix-blend-mode: multiply;
   }
@@ -33,7 +35,7 @@ export const Body = styled.div`
   display: flex;
   flex-direction: column;
   flex: 1;
-  padding: 20px 20px 24px;
+  padding: 16px 16px 20px;
 
   p {
     margin-bottom: 8px;
@@ -41,7 +43,14 @@ export const Body = styled.div`
 
   h3 {
     flex: 1;
-    font-size: 20px;
+    font-size: clamp(17px, 2vw, 20px);
     margin-bottom: 20px;
+  }
+
+  a {
+    width: 100%;
+    padding-inline: 12px;
+    white-space: normal;
+    text-align: center;
   }
 `;

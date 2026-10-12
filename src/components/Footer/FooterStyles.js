@@ -81,13 +81,15 @@ export const Bottom = styled.div`
   display: flex;
   flex-direction: column;
   gap: 8px;
-  padding: 24px 0 32px;
+  /* Deja lugar al botón flotante del chat. */
+  padding: 24px 0 96px;
   border-top: 1px solid var(--line-light);
   font-size: 13px;
 
   ${media.md} {
     flex-direction: row;
     justify-content: space-between;
+    padding: 24px 80px 32px 0;
   }
 
   a {

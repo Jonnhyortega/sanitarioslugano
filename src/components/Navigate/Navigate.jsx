@@ -66,7 +66,7 @@ export default function Navigate() {
   const closeMenu = () => setMenuOpen(false);
 
   return (
-    <Header $scrolled={scrolled || menuOpen}>
+    <Header $scrolled={scrolled || menuOpen} $menuOpen={menuOpen}>
       <Container as="div" style={{ height: "100%" }}>
         <Bar>
           <Brand href="#inicio" onClick={closeMenu} aria-label="Sanitarios Lugano, ir al inicio">

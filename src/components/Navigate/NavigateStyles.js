@@ -4,7 +4,8 @@ import { media } from "../../styles/theme";
 export const Header = styled.header`
   position: fixed;
   inset: 0 0 auto 0;
-  z-index: 1000;
+  /* Con el menú abierto queda por encima del botón del chat (1100). */
+  z-index: ${({ $menuOpen }) => ($menuOpen ? 1200 : 1000)};
   height: var(--header-h);
   background: ${({ $scrolled }) => ($scrolled ? "var(--white)" : "transparent")};
   border-bottom: 1px solid ${({ $scrolled }) => ($scrolled ? "var(--line)" : "transparent")};

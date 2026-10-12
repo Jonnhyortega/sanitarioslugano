@@ -1,9 +1,17 @@
 import styled from "styled-components";
+import { media } from "../../styles/theme";
 
 export const Cards = styled.div`
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
   gap: 20px;
+
+  ${media.sm} {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  ${media.lg} {
+    grid-template-columns: repeat(4, 1fr);
+  }
 `;
 
 export const Card = styled.article`
