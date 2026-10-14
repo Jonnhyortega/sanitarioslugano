@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { PiList, PiX } from "react-icons/pi";
-import logo from "../../Imgs/LogoBlue.jpeg";
+import logo from "../../Imgs/LogoNav.webp";
 import { navItems, budgetLink } from "../../config/links";
 import { Container } from "../ui/Section";
 import Button from "../ui/Button";
@@ -70,8 +70,7 @@ export default function Navigate() {
       <Container as="div" style={{ height: "100%" }}>
         <Bar>
           <Brand href="#inicio" onClick={closeMenu} aria-label="Sanitarios Lugano, ir al inicio">
-            <img src={logo} alt="" />
-            <span>Sanitarios Lugano</span>
+            <img src={logo} alt="" width="134" height="140" />
           </Brand>
 
           <DesktopNav aria-label="Principal">

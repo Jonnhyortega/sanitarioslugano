@@ -23,25 +23,12 @@ export const Bar = styled.div`
 export const Brand = styled.a`
   display: flex;
   align-items: center;
-  gap: 12px;
-  text-decoration: none;
-  color: var(--navy-900);
   position: relative;
   z-index: 2;
 
   img {
-    width: 44px;
-    height: 44px;
-    border-radius: var(--radius);
-    object-fit: cover;
-  }
-
-  span {
-    font-family: var(--font-serif);
-    font-size: 19px;
-    white-space: nowrap;
-    font-weight: 600;
-    letter-spacing: -0.01em;
+    width: auto;
+    height: 56px;
   }
 `;
 
