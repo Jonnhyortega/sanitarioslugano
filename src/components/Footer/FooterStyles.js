@@ -28,7 +28,7 @@ export const Columns = styled.div`
   }
 
   ${media.lg} {
-    grid-template-columns: 1.4fr 1fr 1fr 1fr;
+    grid-template-columns: 1.3fr 0.9fr 1.2fr 1.1fr;
   }
 
   h3 {
@@ -50,10 +50,11 @@ export const Columns = styled.div`
 
 export const BrandCol = styled.div`
   img {
-    width: 56px;
-    height: 56px;
-    border-radius: var(--radius);
-    object-fit: cover;
+    width: 112px;
+    height: auto;
+    /* Logo blanco sin fondo: la sombra lo despega del azul oscuro. */
+    filter: drop-shadow(0 2px 3px rgba(0, 0, 0, 0.55)) drop-shadow(0 8px 18px rgba(0, 0, 0, 0.45))
+      drop-shadow(0 0 22px rgba(58, 165, 219, 0.28));
   }
 
   p {
@@ -65,11 +66,76 @@ export const BrandCol = styled.div`
   }
 `;
 
-export const Social = styled.ul`
-  li a {
-    display: inline-flex;
-    align-items: center;
+export const ContactList = styled.ul`
+  li {
+    display: grid;
+    grid-template-columns: 18px 1fr;
     gap: 10px;
+    align-items: start;
+  }
+
+  svg {
+    margin-top: 3px;
+    font-size: 18px;
+    color: var(--sky-500);
+  }
+`;
+
+export const Hours = styled.dl`
+  display: grid;
+  gap: 12px;
+
+  div {
+    padding: 12px 14px;
+    border: 1px solid var(--line-light);
+    border-radius: var(--radius);
+    background: rgba(255, 255, 255, 0.03);
+  }
+
+  dt {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  dt svg {
+    font-size: 16px;
+    color: var(--sky-500);
+  }
+
+  dd {
+    margin-top: 4px;
+    font-family: var(--font-serif);
+    font-size: 20px;
+    color: var(--white);
+  }
+`;
+
+export const Social = styled.ul`
+  /* && le gana al "ul" genérico de Columns. */
+  && {
+    display: flex;
+    gap: 10px;
+    margin-top: 24px;
+  }
+
+  a {
+    display: grid;
+    place-items: center;
+    width: 40px;
+    height: 40px;
+    border: 1px solid var(--line-light);
+    border-radius: 50%;
+    transition: color 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+
+    &:hover {
+      border-color: var(--sky-500);
+      background: var(--sky-500);
+    }
   }
 
   svg {
