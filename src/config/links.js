@@ -4,8 +4,13 @@ import { site } from "./site";
 export const hasStore = (cfg = site) =>
   typeof cfg.storeUrl === "string" && cfg.storeUrl.trim() !== "";
 
+// También se codifican . ! ( ) para que el link no termine en un signo que
+// el chat (y otros detectores de URLs) toman como puntuación del texto.
+const encodeText = (text) =>
+  encodeURIComponent(text).replace(/[.!'()*]/g, (c) => `%${c.charCodeAt(0).toString(16).toUpperCase()}`);
+
 export const whatsappLink = (message, cfg = site) =>
-  `https://wa.me/${cfg.whatsapp}?text=${encodeURIComponent(message ?? cfg.whatsappMessage)}`;
+  `https://wa.me/${cfg.whatsapp}?text=${encodeText(message ?? cfg.whatsappMessage)}`;
 
 export const productCta = (product, cfg = site) =>
   hasStore(cfg)
@@ -39,6 +44,28 @@ export const heroCtas = (cfg = site) => ({
     ? { label: "Comprar online", href: cfg.storeUrl, external: true }
     : { label: "Ver marcas", href: "#marcas", external: false },
 });
+
+// Banda destacada del footer: lleva a la tienda y, sin tienda, al presupuesto por WhatsApp.
+export const footerCta = (cfg = site) =>
+  hasStore(cfg)
+    ? {
+        eyebrow: "Tienda online",
+        title: "El mostrador de siempre,",
+        accent: "ahora también online.",
+        text: "Elegí sanitarios, grifería y accesorios desde cualquier lugar, con el respaldo de más de tres décadas en Villa Lugano.",
+        label: "Visitar la tienda",
+        href: cfg.storeUrl,
+        kind: "store",
+      }
+    : {
+        eyebrow: "Atención personalizada",
+        title: "¿Arrancás una obra?",
+        accent: "Te armamos el presupuesto.",
+        text: "Contanos qué necesitás por WhatsApp y te respondemos a la brevedad.",
+        label: "Pedir presupuesto",
+        href: budgetLink(cfg),
+        kind: "whatsapp",
+      };
 
 export const contactLinks = (cfg = site) => {
   const links = [
@@ -83,18 +110,44 @@ export const timeline = (cfg = site) => {
 
 const isPlaceholder = (text) => /a completar/i.test(text);
 
-// Datos del negocio que el chatbot recibe en su contexto.
-export const chatFacts = (cfg = site) => {
-  const lines = [
-    hasStore(cfg)
-      ? `- Tiene tienda online en ${cfg.storeUrl}; para compras online derivar ahí. No inventar precios ni stock.`
-      : "- No tiene venta online directa. La compra se gestiona por contacto directo (WhatsApp, llamada o visita).",
-    `- WhatsApp oficial: ${whatsappLink(undefined, cfg)}`,
-    "- Medios de pago: Mercado Pago y efectivo.",
-  ];
-  if (!isPlaceholder(cfg.address)) lines.push(`- Dirección: ${cfg.address}`);
-  else lines.push("- Local físico en Villa Lugano, Buenos Aires, Argentina.");
+// Horarios para mostrar: nunca se publica un "a completar".
+export const visibleHours = (cfg = site) => {
   const hours = cfg.hours.filter((h) => !isPlaceholder(h));
-  if (hours.length) lines.push(`- Horarios: ${hours.join("; ")}`);
-  return lines.join("\n");
+  return hours.length ? hours : ["Consultá horarios por WhatsApp"];
+};
+
+// Preguntas frecuentes del chat: respuestas fijas armadas con los datos del negocio.
+export const chatReplies = (cfg = site) => {
+  const hours = cfg.hours.filter((h) => !isPlaceholder(h));
+  const whatsapp = whatsappLink(undefined, cfg);
+  return [
+    {
+      question: "¿Cómo pido un presupuesto?",
+      answer: `Pedilo por WhatsApp 💬 Contanos qué necesitás y te respondemos a la brevedad.\n👉 ${budgetLink(cfg)}`,
+    },
+    {
+      question: "¿Dónde están?",
+      answer: `Estamos en **${cfg.address}** 📍\n${cfg.mapsUrl}`,
+    },
+    {
+      question: "Horarios",
+      answer: hours.length
+        ? `Te esperamos:\n${hours.join("\n")}`
+        : `Consultanos los horarios por WhatsApp 🕑\n${whatsapp}`,
+    },
+    {
+      question: "Medios de pago",
+      answer: "Aceptamos **Mercado Pago** y **efectivo** 💰",
+    },
+    {
+      question: "¿Venden online?",
+      answer: hasStore(cfg)
+        ? `¡Sí! Comprá en nuestra tienda online 🛒\n${cfg.storeUrl}`
+        : `Por ahora coordinamos las compras por WhatsApp o en el local.\n${whatsapp}`,
+    },
+    {
+      question: "Hablar con una persona",
+      answer: `¡Claro! Escribinos y te atiende alguien del equipo 🙌\n${whatsapp}`,
+    },
+  ];
 };

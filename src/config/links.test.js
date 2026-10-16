@@ -7,8 +7,10 @@ import {
   navItems,
   heroCtas,
   contactLinks,
+  footerCta,
   timeline,
-  chatFacts,
+  chatReplies,
+  visibleHours,
 } from "./links";
 
 const base = { ...site, storeUrl: null };
@@ -35,7 +37,7 @@ describe("whatsappLink", () => {
   });
   it("falls back to the default message", () => {
     expect(whatsappLink(undefined, base)).toBe(
-      `https://wa.me/5491171020921?text=${encodeURIComponent(site.whatsappMessage)}`
+      "https://wa.me/5491171020921?text=%C2%A1Hola%21%20Quiero%20pedir%20informaci%C3%B3n%20sobre%20sus%20productos%2E"
     );
   });
 });
@@ -88,6 +90,22 @@ describe("heroCtas", () => {
   });
 });
 
+describe("footerCta", () => {
+  it("sends to the store with a store", () => {
+    expect(footerCta(store)).toMatchObject({ kind: "store", href: "https://tienda.test" });
+  });
+  it("falls back to a WhatsApp budget without a store", () => {
+    expect(footerCta(base).kind).toBe("whatsapp");
+    expect(footerCta(base).href).toMatch(/^https:\/\/wa\.me\/5491171020921/);
+  });
+});
+
+describe("site store", () => {
+  it("points to the Tiendanube store", () => {
+    expect(site.storeUrl).toBe("https://sanitarioslugano.mitiendanube.com");
+  });
+});
+
 describe("contactLinks", () => {
   it("lists the base channels in order", () => {
     expect(contactLinks(base).map((l) => l.key)).toEqual([
@@ -120,25 +138,40 @@ describe("site", () => {
   });
 });
 
-describe("chatFacts", () => {
-  it("says there is no online sale without a store", () => {
-    expect(chatFacts(base)).toMatch(/No tiene venta online directa/);
+describe("chatReplies", () => {
+  const answerFor = (cfg, question) => chatReplies(cfg).find((r) => r.question === question).answer;
+
+  it("has a unique question per reply", () => {
+    const questions = chatReplies(base).map((r) => r.question);
+    expect(new Set(questions).size).toBe(questions.length);
   });
-  it("points to the store with a store, without allowing invented prices", () => {
-    const facts = chatFacts(store);
-    expect(facts).toMatch("https://tienda.test");
-    expect(facts).not.toMatch(/No tiene venta online/);
-    expect(facts).toMatch(/No inventar precios/);
+  it("never shows placeholder data", () => {
+    for (const { answer } of chatReplies(base)) expect(answer).not.toMatch(/a completar/);
   });
-  it("omits placeholder address and hours", () => {
-    expect(chatFacts(base)).not.toMatch(/a completar/);
+  it("sends hours questions to WhatsApp until real hours exist", () => {
+    expect(answerFor({ ...base, hours: ["Lunes: a completar"] }, "Horarios")).toMatch("wa.me/5491171020921");
+    expect(answerFor({ ...base, hours: ["Lun a Vie 8 a 18"] }, "Horarios")).toMatch("Lun a Vie 8 a 18");
   });
-  it("includes real address and hours", () => {
-    const facts = chatFacts({ ...base, address: "Av. Real 123", hours: ["Lun a Vie 8 a 18"] });
-    expect(facts).toMatch("Av. Real 123");
-    expect(facts).toMatch("Lun a Vie 8 a 18");
+  it("includes the address and the maps link", () => {
+    expect(answerFor(base, "¿Dónde están?")).toMatch(site.address);
+    expect(answerFor(base, "¿Dónde están?")).toMatch(site.mapsUrl);
   });
-  it("includes the official WhatsApp", () => {
-    expect(chatFacts(base)).toMatch("wa.me/5491171020921");
+  it("points to the store only when there is one", () => {
+    expect(answerFor(base, "¿Venden online?")).toMatch(/WhatsApp/);
+    expect(answerFor(store, "¿Venden online?")).toMatch("https://tienda.test");
+  });
+});
+
+describe("visibleHours", () => {
+  it("never shows placeholder hours", () => {
+    expect(visibleHours({ ...base, hours: ["Lunes: a completar"] })).toEqual([
+      "Consultá horarios por WhatsApp",
+    ]);
+  });
+
+  it("keeps real hours", () => {
+    expect(visibleHours({ ...base, hours: ["Lunes a viernes: 8 a 18", "Sábados: a completar"] })).toEqual([
+      "Lunes a viernes: 8 a 18",
+    ]);
   });
 });

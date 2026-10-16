@@ -1,17 +1,28 @@
 import { FaInstagram, FaWhatsapp } from "react-icons/fa";
-import { PiMapPin, PiClock } from "react-icons/pi";
+import { PiMapPin, PiClock, PiArrowUpRight, PiArrowUp, PiStorefront } from "react-icons/pi";
 import logo from "../../Imgs/LogoFooter.webp";
 import { site } from "../../config/site";
-import { navItems, whatsappLink } from "../../config/links";
+import { navItems, whatsappLink, visibleHours, footerCta, budgetLink } from "../../config/links";
 import { Container } from "../ui/Section";
+import Button from "../ui/Button";
+import Eyebrow from "../ui/Eyebrow";
 import {
   FooterContainer,
+  Glow,
+  Band,
+  BandIcon,
+  BandActions,
   Columns,
   BrandCol,
+  Since,
+  NavList,
+  New,
   ContactList,
   Hours,
   Social,
+  Wordmark,
   Bottom,
+  ToTop,
 } from "./FooterStyles";
 
 const ext = { target: "_blank", rel: "noopener noreferrer" };
@@ -23,43 +34,61 @@ const splitHour = (h) => {
 };
 
 export default function Footer() {
+  const cta = footerCta();
+  const isStore = cta.kind === "store";
+
   return (
     <FooterContainer>
+      <Glow aria-hidden="true" />
       <Container>
+        <Band aria-labelledby="footer-cta">
+          <BandIcon aria-hidden="true">{isStore ? <PiStorefront /> : <FaWhatsapp />}</BandIcon>
+          <div>
+            <Eyebrow $light>{cta.eyebrow}</Eyebrow>
+            <h2 id="footer-cta">
+              {cta.title} <span>{cta.accent}</span>
+            </h2>
+            <p>{cta.text}</p>
+          </div>
+          <BandActions>
+            <Button href={cta.href} variant="light" external>
+              {cta.label} <PiArrowUpRight aria-hidden="true" />
+            </Button>
+            {isStore && (
+              <Button href={budgetLink()} variant="outlineLight" external>
+                <FaWhatsapp aria-hidden="true" /> Pedir presupuesto
+              </Button>
+            )}
+          </BandActions>
+        </Band>
+
         <Columns>
           <BrandCol>
             <img src={logo} alt="Sanitarios Lugano" width="134" height="140" loading="lazy" />
             <p>Calidad y confianza desde {site.founded}.</p>
-            <Social aria-label="Redes">
-              <li>
-                <a href={site.instagram} aria-label="Instagram" {...ext}>
-                  <FaInstagram aria-hidden="true" />
-                </a>
-              </li>
-              <li>
-                <a href={whatsappLink()} aria-label="WhatsApp" {...ext}>
-                  <FaWhatsapp aria-hidden="true" />
-                </a>
-              </li>
-              <li>
-                <a href={site.mapsUrl} aria-label="Google Maps" {...ext}>
-                  <PiMapPin aria-hidden="true" />
-                </a>
-              </li>
-            </Social>
+            <Since>
+              <strong>{new Date().getFullYear() - site.founded}</strong>
+              <span>
+                años en
+                <br />
+                Villa Lugano
+              </span>
+            </Since>
           </BrandCol>
 
           <nav aria-label="Pie de página">
             <h3>Navegación</h3>
-            <ul>
+            <NavList>
               {navItems().map((item) => (
                 <li key={item.href}>
                   <a href={item.href} {...(item.external ? ext : {})}>
                     {item.label}
+                    {item.external && <New>Nuevo</New>}
+                    <PiArrowUpRight aria-hidden="true" />
                   </a>
                 </li>
               ))}
-            </ul>
+            </NavList>
           </nav>
 
           <div>
@@ -78,12 +107,29 @@ export default function Footer() {
                 </a>
               </li>
             </ContactList>
+            <Social aria-label="Redes">
+              <li>
+                <a href={site.instagram} aria-label="Instagram" {...ext}>
+                  <FaInstagram aria-hidden="true" />
+                </a>
+              </li>
+              <li>
+                <a href={whatsappLink()} aria-label="WhatsApp" {...ext}>
+                  <FaWhatsapp aria-hidden="true" />
+                </a>
+              </li>
+              <li>
+                <a href={site.mapsUrl} aria-label="Google Maps" {...ext}>
+                  <PiMapPin aria-hidden="true" />
+                </a>
+              </li>
+            </Social>
           </div>
 
           <div>
             <h3>Horarios</h3>
             <Hours>
-              {site.hours.map((h) => {
+              {visibleHours().map((h) => {
                 const [days, time] = splitHour(h);
                 return (
                   <div key={h}>
@@ -98,6 +144,8 @@ export default function Footer() {
           </div>
         </Columns>
 
+        <Wordmark aria-hidden="true">{site.name}</Wordmark>
+
         <Bottom>
           <span>
             © {new Date().getFullYear()} {site.name}. Todos los derechos reservados.
@@ -108,6 +156,9 @@ export default function Footer() {
               {site.developer.name}
             </a>
           </span>
+          <ToTop href="#inicio">
+            Volver arriba <PiArrowUp aria-hidden="true" />
+          </ToTop>
         </Bottom>
       </Container>
     </FooterContainer>
