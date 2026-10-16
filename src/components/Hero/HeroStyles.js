@@ -152,6 +152,7 @@ export const Figure = styled.figure`
 
   img {
     width: 100%;
+    height: auto;
     aspect-ratio: 4 / 3;
     object-fit: cover;
     object-position: 50% 55%;

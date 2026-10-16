@@ -1,6 +1,5 @@
 import { Fragment } from "react";
 import { PiArrowRight } from "react-icons/pi";
-import heroImg from "../../Imgs/HomeImgs/fondoHome.jpeg";
 import { site } from "../../config/site";
 import { heroCtas } from "../../config/links";
 import { Container } from "../ui/Section";
@@ -52,7 +51,19 @@ export default function Hero() {
         <Figure>
           <div className="frame">
             <div className="media">
-              <img src={heroImg} alt="Frente del local de Sanitarios Lugano en Villa Lugano" />
+              {/* Imagen LCP: servida desde /public para precargarla en index.html con el mismo srcset. */}
+              <img
+                src="/img/local-1024.webp"
+                srcSet="/img/local-640.webp 640w, /img/local-1024.webp 1024w, /img/local-1280.webp 1280w"
+                sizes="(min-width: 1248px) 1200px, calc(100vw - 44px)"
+                width="1280"
+                height="720"
+                // React 18 no conoce fetchPriority: en minúsculas llega tal cual al HTML.
+                // eslint-disable-next-line react/no-unknown-property
+                fetchpriority="high"
+                decoding="async"
+                alt="Frente del local de Sanitarios Lugano en Villa Lugano"
+              />
             </div>
             <figcaption>
               <Eyebrow as="p">Nuestro local</Eyebrow>

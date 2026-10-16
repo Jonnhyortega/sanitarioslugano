@@ -95,17 +95,28 @@ export function startScrollScenes(root = document) {
     if (!frame) frame = requestAnimationFrame(update);
   };
 
+  // Varias señales seguidas (resize, load, fuentes) se agrupan en una sola medición por frame:
+  // medir fuerza un layout de toda la página.
+  let measureFrame = 0;
   const remeasure = () => {
-    measure();
-    schedule();
+    if (measureFrame) return;
+    measureFrame = requestAnimationFrame(() => {
+      measureFrame = 0;
+      measure();
+      update();
+    });
   };
 
   measure();
   update();
 
   // Imágenes que cargan, fuentes o cambios de ancho mueven el layout: se vuelve a medir.
+  // El primer aviso del observer llega al empezar a observar: ya se midió arriba.
+  let observed = false;
   const resizeObserver =
-    typeof ResizeObserver !== "undefined" ? new ResizeObserver(remeasure) : null;
+    typeof ResizeObserver !== "undefined"
+      ? new ResizeObserver(() => (observed ? remeasure() : (observed = true)))
+      : null;
   resizeObserver?.observe(document.body);
   window.addEventListener("scroll", schedule, { passive: true });
   window.addEventListener("resize", remeasure);
@@ -113,6 +124,7 @@ export function startScrollScenes(root = document) {
 
   return () => {
     cancelAnimationFrame(frame);
+    cancelAnimationFrame(measureFrame);
     resizeObserver?.disconnect();
     window.removeEventListener("scroll", schedule);
     window.removeEventListener("resize", remeasure);

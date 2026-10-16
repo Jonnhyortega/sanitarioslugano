@@ -1,7 +1,7 @@
 import { FaWhatsapp, FaInstagram } from "react-icons/fa";
 import { PiMapPin, PiStar, PiStorefront } from "react-icons/pi";
 import { site } from "../../config/site";
-import { contactLinks, whatsappLink } from "../../config/links";
+import { contactLinks, whatsappLink, visibleHours } from "../../config/links";
 import { Section, Container } from "../ui/Section";
 import Eyebrow from "../ui/Eyebrow";
 import Button from "../ui/Button";
@@ -32,7 +32,7 @@ export default function Contact() {
                 <dt>Horarios</dt>
                 <dd>
                   <ul>
-                    {site.hours.map((h) => (
+                    {visibleHours().map((h) => (
                       <li key={h}>{h}</li>
                     ))}
                   </ul>

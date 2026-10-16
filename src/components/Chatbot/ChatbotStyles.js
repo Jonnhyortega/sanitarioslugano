@@ -166,39 +166,4 @@ export const ChatbotContainer = styled.section`
     }
   }
 
-  .chat-input-area {
-    display: flex;
-    gap: 8px;
-    padding: 12px 16px;
-    border-top: 1px solid var(--line);
-
-    input {
-      flex: 1;
-      min-width: 0;
-      padding: 10px 12px;
-      border: 1px solid var(--line);
-      border-radius: 3px;
-      font: inherit;
-      font-size: 14px;
-      color: var(--ink-700);
-
-      &:focus {
-        border-color: var(--navy-700);
-        outline: none;
-      }
-    }
-
-    button {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: 42px;
-      border: none;
-      border-radius: 3px;
-      background: var(--navy-700);
-      color: var(--white);
-      font-size: 18px;
-      cursor: pointer;
-    }
-  }
 `;

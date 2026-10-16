@@ -5,6 +5,7 @@ const TRAILING_PUNCT = /[.,;:!?)]+$/;
 const linkLabel = (href) => {
   const { hostname } = new URL(href);
   if (hostname === "wa.me" || hostname.endsWith("whatsapp.com")) return "Escribinos por WhatsApp";
+  if (hostname === "maps.app.goo.gl" || /(^|\.)google\.[a-z.]+$/.test(hostname)) return "Ver en Google Maps";
   return hostname.replace(/^www\./, "");
 };
 

@@ -14,6 +14,12 @@ describe("parseMessage", () => {
     ]);
   });
 
+  it("labels Google Maps links", () => {
+    expect(parseMessage("https://maps.app.goo.gl/abc")).toEqual([
+      { type: "link", href: "https://maps.app.goo.gl/abc", label: "Ver en Google Maps" },
+    ]);
+  });
+
   it("labels other links with their host", () => {
     expect(parseMessage("Mirá https://tienda.test/productos/x.")).toEqual([
       { type: "text", value: "Mirá " },
