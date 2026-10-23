@@ -6,6 +6,7 @@ import History from "./components/History/History";
 import Professionals from "./components/Professionals/Professionals";
 import Brands from "./components/Brands/Brands";
 import Products from "./components/Products/Products";
+import Reviews from "./components/Reviews/Reviews";
 import Contact from "./components/Contact/Contact";
 import Footer from "./components/Footer/Footer";
 import { startScrollScenes } from "./motion/scrollScenes";
@@ -43,6 +44,7 @@ export default function App() {
         <Professionals />
         <Brands />
         <Products />
+        <Reviews />
         <Contact />
       </main>
       <Footer />
